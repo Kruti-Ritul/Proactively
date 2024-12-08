@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
   scrollableContainer: { 
     flex: 1, 
     padding: 16,
-    borderRadius: 16, // Rounded corners for the ScrollView
+    borderTopLeftRadius: 16,
+    borderTopRightRadius:16,
     marginTop: 50, // To create space for the floating health score container
     backgroundColor: "#FFFFFF"
   },
@@ -96,18 +97,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 2,
     width: 95,
-    marginBottom: 10,
+    marginBottom: -10,
   },
   cardTitle: { fontSize: 14, fontWeight: 'bold', color: 'white' },
-  cardBody: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: -15 },
+  cardBody: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: -35 },
   cardDetails: { flex: 1 },
   cardName: { fontSize: 18, fontWeight: 'bold' },
   qualificationText: { fontSize: 14, color: '#707070', fontWeight: 400 },
   specializationText: { fontSize: 14, color: '#707070', fontWeight: 400 },
   cardDate: { fontSize: 14, color: '#707070', fontWeight: 400, marginBottom: 5, marginTop: 10 },
   profilePicContainer: { alignItems: 'center', top: -50},
-  arrowIcon: { marginBottom: 30, marginRight: -40, marginTop: 10, height: 13, width: 8 },
-  profileImageA: { width: 50, height: 50, borderRadius: 20, marginRight:5},
+  //arrowIcon: { marginBottom: 30, marginRight: -80, marginTop: 10, height: 13, width: 8 },
+  profileImageA: { width: 100, height: 100, borderRadius: 20, marginRight:5, marginTop: 40},
   sectionTitle: { fontSize: 18, fontWeight: '600', marginVertical: 10 },
   healthCard: {
     width: 100,
@@ -120,10 +121,56 @@ const styles = StyleSheet.create({
   },
   healthCardTitle: { fontSize: 16, fontWeight: 'bold' },
   healthCardValue: { fontSize: 14, color: '#555' },
-  taskItem: { padding: 15, borderBottomWidth: 1, borderColor: '#eee' },
-  taskText: { fontSize: 16 },
-  taskTextCompleted: { textDecorationLine: 'line-through', color: '#aaa' },
-  progressBar: { height: 10, borderRadius: 5, marginVertical: 10 },
+  taskItem: { 
+    padding: 15, 
+    borderBottomWidth: 1, 
+    borderColor: '#ddd', 
+    flexDirection: 'row', 
+    alignItems: 'center',
+    paddingVertical: 10,    
+     
+  },
+
+  taskContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginTop: 30,
+    borderWidth: 1,
+    borderColor: '#ECECEC',
+    height: 100,
+    borderRadius: 12,
+  },
+  taskText: { fontSize: 16, flexWrap: 'wrap', maxWidth: '90%', marginLeft: 10 },
+  taskTextCompleted: { color: '#aaa' },
+  progressBar: { height: 10, borderRadius: 5, marginVertical: 10, width: '100%' },
+  progressText: {
+    fontSize: 14,
+    color: '#666',
+    //textAlign: 'center',
+  },
+  checkBoxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  checkBox: {
+    marginRight: 10,
+  },
+
+  taskDetailsText: {
+    fontSize: 12,
+    color: '#555',
+    flex: 1,
+  },
+
+  taskMetadata: {
+    fontSize: 12,
+    color: '#777',
+    marginTop: 2,
+    marginLeft: 10
+  },
 });
 
 export default styles;

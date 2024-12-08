@@ -12,6 +12,7 @@ import { getFcmToken } from '../utils/notifications';
 //import { sendPushNotification } from '../utils/notifications';
 import { tokens } from 'react-native-paper/lib/typescript/styles/themes/v3/tokens';
 import styles from './HomeScreen.styles'; 
+import { Checkbox } from 'expo-checkbox';
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -19,6 +20,8 @@ interface Task {
   id: string;
   text: string;
   completed: boolean;
+  author: string;
+  date: string;
 }
 
 interface HealthData {
@@ -31,10 +34,34 @@ const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
 
   const [tasks, setTasks] = useState<Task[]>([
-    { id: '1', text: 'Achieve 30k steps weekly', completed: false },
-    { id: '2', text: 'Take up health coaching', completed: false },
-    { id: '3', text: 'Workout for 30 mins', completed: false },
-    { id: '4', text: 'Complete 2 courses', completed: true },
+    {
+      id: '1',
+      text: 'Achieve 30k steps every week for blood sugar',
+      completed: false,
+      author: 'Laurie Simons',
+      date: 'Sep 5, 2024',
+    },
+    {
+      id: '2',
+      text: 'Take up health Coaching',
+      completed: false,
+      author: 'Laurie Simons',
+      date: 'Sep 5, 2024',
+    },
+    {
+      id: '3',
+      text: 'Go to a nearby gym and workout for 30 mins',
+      completed: false,
+      author: 'Laurie Simons',
+      date: 'Sep 5, 2024',
+    },
+    {
+      id: '4',
+      text: 'Complete 2 courses of Dr. Laurie Simons',
+      completed: true,
+      author: 'Laurie Simons',
+      date: 'Aug 30, 2024',
+    },
   ]);
 
   const [progress, setProgress] = useState<number>(0.91);
@@ -61,7 +88,7 @@ const HomeScreen: React.FC = () => {
       date: 'Thu, Dec 21, 2024',
       time: '10:00 AM',
       arrow: require('../assets/arrow.png'),
-      profilePic: require('../assets/image.png'), // Use the uploaded image for profile
+      profilePic: require('../assets/appointmentProfile.png'), // Use the uploaded image for profile
     },
   ]);
 
@@ -79,12 +106,13 @@ const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     const completedTasks = tasks.filter((task) => task.completed).length;
-    setProgress(completedTasks / tasks.length);
+    const totalTasks = tasks.length;
+    setProgress(totalTasks > 0 ? completedTasks / totalTasks : 0);
   }, [tasks]);
 
   const toggleTask = (id: string) => {
-    setTasks((prev) =>
-      prev.map((task) =>
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
@@ -95,7 +123,7 @@ const HomeScreen: React.FC = () => {
       <View style={styles.healthScoreContainer}>
         <View style={styles.headerContainer}>
           <Image
-            source={require('../assets/image.png')}
+            source={require('../assets/healthscoreprofile.png')}
             style={styles.profileImage}
           />
           <Text style={styles.header}>Ethan Harkinson</Text>
@@ -169,7 +197,7 @@ const HomeScreen: React.FC = () => {
                 <Text style={styles.cardDate}>{appointment.date} | {appointment.time}</Text>
               </View>
               <View style={styles.profilePicContainer}>
-                <Image source={appointment.arrow} style={styles.arrowIcon}/>
+                {/*<Image source={appointment.arrow} style={styles.arrowIcon}/>*/}
                 <Image source={appointment.profilePic} style={styles.profileImageA} />
               </View>
             </View>
@@ -194,28 +222,36 @@ const HomeScreen: React.FC = () => {
           )}
         />
 
+        {/* Task Progress Section */}
+
         <Text style={styles.sectionTitle}>Let’s check off your to-dos</Text>
-        <ProgressBar
-          progress={progress}
-          color="#4CAF50"
-          style={styles.progressBar}
-        />
-        {tasks.map((task) => (
-          <TouchableOpacity
-            key={task.id}
-            style={styles.taskItem}
-            onPress={() => toggleTask(task.id)}
-          >
+      <View style={styles.progressContainer}>
+        <Text style={styles.progressText}>
+          {tasks.filter((task) => task.completed).length}/{tasks.length} Completed
+        </Text>
+        <ProgressBar progress={progress} color="#4CAF50" style={styles.progressBar} />
+      </View>
+
+      {tasks.map((task) => (
+        <View key={task.id} style={styles.taskContainer}>
+          <Checkbox
+            value={task.completed}
+            onValueChange={() => toggleTask(task.id)}
+            color={task.completed ? '#4CAF50' : '#BDBDBD'}
+            style={styles.checkBox}
+          />
+          <View>
             <Text
-              style={[
-                styles.taskText,
-                task.completed && styles.taskTextCompleted,
-              ]}
+              style={[styles.taskText, task.completed && styles.taskTextCompleted]}
             >
               {task.text}
             </Text>
-          </TouchableOpacity>
-        ))}
+            <Text style={styles.taskMetadata}>
+              {task.author} • {task.date}
+            </Text>
+          </View>
+        </View>
+      ))}
       </ScrollView>
     </View>
   );
