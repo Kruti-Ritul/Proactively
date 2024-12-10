@@ -14,7 +14,6 @@ import { tokens } from 'react-native-paper/lib/typescript/styles/themes/v3/token
 import styles from './HomeScreen.styles'; 
 import { Checkbox } from 'expo-checkbox';
 
-
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
 interface Task {
@@ -37,6 +36,7 @@ interface HealthData {
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
+  
 
   const [tasks, setTasks] = useState<Task[]>([
     {
@@ -70,9 +70,11 @@ const HomeScreen: React.FC = () => {
   ]);
 
   const [progress, setProgress] = useState<number>(0.91);
+
+  //Header health section
   const [healthScore, setHealthScore] = useState<number>(2000);
   
-
+  //header
   const getArrowColor = (normalizedValue: number) => {
     if (normalizedValue <= 33) {
       return '#FF8090'; // Red
@@ -85,6 +87,7 @@ const HomeScreen: React.FC = () => {
 
   const normalizedScore = Math.min(100, Math.max(0, (healthScore / 3000) * 100)); // Normalize the health score to between 0 and 100
 
+  //Appointments
   const [appointments, setAppointments] = useState([
     {
       id: '1',
@@ -97,15 +100,6 @@ const HomeScreen: React.FC = () => {
       profilePic: require('../assets/appointmentProfile.png'), // Use the uploaded image for profile
     },
   ]);
-
-  //Appointment
-  useEffect(() => {
-    getFcmToken().then((token) => {
-      console.log('FCM Token:', token);
-    });
-  }, []);
-
-
 
   //Health Card
   const [healthData, setHealthData] = useState<HealthData[]>([
@@ -138,6 +132,48 @@ const HomeScreen: React.FC = () => {
     },
   ]);
 
+  useEffect(() => {
+    // Load data on component mount
+    console.log('Component mounted, loading data...');
+    loadData();
+  }, []);
+  
+
+    // Function to load data from AsyncStorage
+  const loadData = async () => {
+    try{
+      const storedTasks = await AsyncStorage.getItem('user_tasks');
+      const storedHealthData = await AsyncStorage.getItem('user_health_data');
+
+      console.log('Loading data:', {
+        tasks: storedTasks ? JSON.parse(storedTasks): null,
+        healthData: storedHealthData ? JSON.parse(storedHealthData): null,
+      });
+
+      if (storedTasks){
+        setTasks(JSON.parse(storedTasks));
+      }
+
+      if (storedHealthData){
+        setHealthData(JSON.parse(storedHealthData));
+      }
+    }catch (error){
+      console.error('Error loading data from AsyncStorage:', error);
+    }
+  };
+
+   // Function to save data to AsyncStorage
+   const saveData = async () => {
+    try {
+      console.log('Saving data:', { tasks, healthData });
+      await AsyncStorage.setItem('user_tasks', JSON.stringify(tasks));
+      await AsyncStorage.setItem('user_health_data', JSON.stringify(healthData));
+    } catch (error) {
+      console.error('Error saving data to AsyncStorage:', error);
+    }
+  };
+
+    // Function to update health card data
   const updateHealthData = (id: string, newValue: string) => {
     setHealthData((prevData) =>
       prevData.map((data) =>
@@ -152,6 +188,28 @@ const HomeScreen: React.FC = () => {
       )
     );
   };
+  
+    //To do
+  const toggleTask = (id: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+    // Effect hook to load data when the component mounts
+  useEffect(() => {
+    getFcmToken().then((token) => {
+      console.log('FCM Token:', token);
+    });
+  }, []);
+
+    // Effect hook to save data whenever tasks or health data changes
+  useEffect(() => {
+    console.log('Tasks or HealthData changed, saving data...');
+    saveData(); // Save data to AsyncStorage whenever tasks or healthData changes
+  }, [tasks, healthData]);
 
 
   //To do
@@ -161,14 +219,7 @@ const HomeScreen: React.FC = () => {
     setProgress(totalTasks > 0 ? completedTasks / totalTasks : 0);
   }, [tasks]);
 
-  //To do
-  const toggleTask = (id: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
+
 
   return (
     <View style={styles.container}>
