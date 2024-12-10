@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   healthCardTitle: { fontSize: 16, fontWeight: 'bold', alignSelf: 'flex-start', marginLeft: 20 },
-  healthCardState: { fontSize: 14, color: '#4F65CB', alignSelf: 'flex-start', marginLeft: 20},
-  healthCardValue: { fontSize: 24, color: '#4F65CB', fontWeight: 'bold', alignSelf: 'flex-start', marginLeft: 20 },
+  healthCardState: { fontSize: 14, alignSelf: 'flex-start', marginLeft: 20},
+  healthCardValue: { fontSize: 24, fontWeight: 'bold', alignSelf: 'flex-start', marginLeft: 20 },
 
   //To do List
   taskItem: { 

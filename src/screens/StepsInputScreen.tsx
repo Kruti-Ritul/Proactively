@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
@@ -50,19 +50,77 @@ const StepsInput: React.FC = () => {
   };
 
   return (
-    <View>
-      <Text>Enter Steps:</Text>
-      <TextInput
-        value={steps}
-        onChangeText={setSteps}
-        placeholder="Enter steps"
-        keyboardType="numeric"
-      />
-      <Button title="Save" onPress={handleSave} />
-      <Text>Status: {status}</Text>
-      <Text>Stored Steps: {value}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Steps Count:</Text>
+      <View style={styles.inputContainer}>        
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={steps}
+          onChangeText={setSteps}
+        />
+        <Text style={styles.hint}>steps</Text>
+      </View>
+      <TouchableOpacity style={styles.submitButton} onPress={handleSave}>
+        <Text style={styles.submitButtonText}>Submit</Text>
+      </TouchableOpacity> 
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'left',
+    marginLeft: -240,
+    marginBottom: 10,
+    marginTop: 30
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    height: 81,
+    width: 335,
+  },
+  input: {
+    marginVertical: 10,
+    textAlign: 'left',
+    fontSize: 32,
+    minWidth: 60
+  },
+  hint: {
+    textAlign: 'left',
+    marginTop: 5,
+    alignSelf: 'center',
+    fontSize: 18,
+    color: '#999999'
+    
+  },
+  submitButton: {
+    backgroundColor: '#3b82f6',
+    width: 335,
+    height: 54,
+    paddingVertical: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
 export default StepsInput;

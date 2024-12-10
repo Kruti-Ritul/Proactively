@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
@@ -67,24 +67,31 @@ const BMIInputScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Enter your height (in cm):</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={height}
-        onChangeText={setHeight}
-        placeholder="Height in cm"
-      />
-      <Text style={styles.label}>Enter your weight (in kg):</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={weight}
-        onChangeText={setWeight}
-        placeholder="Weight in kg"
-      />
-      <Button title="Save" onPress={calculateAndSaveBMI} />
-      <Text style={styles.result}>Your BMI: {bmi}</Text>
+      <Text style={styles.text}>Body weight:</Text>
+      <View style={styles.inputContainer}>        
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={weight}
+          onChangeText={setWeight}
+        />
+        <Text style={styles.hint}>kgs</Text>
+      </View>
+      <Text style={styles.text}>Body Height:</Text>
+      <View style={styles.inputContainer}>        
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={height}
+          onChangeText={setHeight}
+        />
+        <Text style={styles.hint}>cms</Text>
+      </View>
+
+      <TouchableOpacity style={styles.submitButton} onPress={calculateAndSaveBMI}>
+        <Text style={styles.submitButtonText}>Submit</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };
@@ -92,24 +99,57 @@ const BMIInputScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 16,
+    backgroundColor: '#fff',
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
+  text: {
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'left',
+    marginLeft: -240,
+    marginBottom: 10,
+    marginTop: 30
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: -10,
+    marginLeft: -155,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    height: 76,
+    width: 173,
   },
   input: {
-    borderBottomWidth: 1,
-    marginBottom: 20,
-    width: '80%',
-    textAlign: 'center',
-    padding: 8,
+    marginVertical: 10,
+    textAlign: 'left',
+    fontSize: 32,
+    minWidth: 60
   },
-  result: {
+  hint: {
+    textAlign: 'left',
+    marginTop: 5,
+    alignSelf: 'center',
     fontSize: 18,
-    marginTop: 20,
+    color: '#999999'
+    
+  },
+  submitButton: {
+    backgroundColor: '#3b82f6',
+    width: 335,
+    height: 54,
+    paddingVertical: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    marginTop: 40,
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

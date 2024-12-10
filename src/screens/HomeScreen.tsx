@@ -30,6 +30,9 @@ interface HealthData {
   title: string;
   state: string;
   value: string;
+  color: string;
+  stateTextColor: string;
+  valueTextColor: String;
 }
 
 const HomeScreen: React.FC = () => {
@@ -111,18 +114,27 @@ const HomeScreen: React.FC = () => {
       title: 'Steps',
       state: 'No Data',
       value: '_',
+      color: '#E9F0FF',
+      stateTextColor: '#4F65CB',
+      valueTextColor: '#4F65CB',
     },
     {
       id: '2',
       title: 'BMI',
       state: 'No data',
       value: '_',
+      color: '#FBFFC8',
+      stateTextColor: '#7B8400',
+      valueTextColor: '#7B8400',
     },
     {
       id: '3',
       title: 'Sleep',
       state: 'No data',
       value: '_',
+      color: '#FFECC8',
+      stateTextColor: '#B27500',
+      valueTextColor: '#B27500',
     },
   ]);
 
@@ -209,12 +221,12 @@ const HomeScreen: React.FC = () => {
             </Text>
           ))}
           </View>
-
-
         </View>
       </View>
 
+
       <ScrollView style={styles.scrollableContainer}>
+        
         {/* Upcoming Appointment Card */}
         {appointments.map((appointment) => (
           <TouchableOpacity
@@ -244,6 +256,7 @@ const HomeScreen: React.FC = () => {
           </TouchableOpacity>
         ))}
 
+
         {/* Health Cards */}
         <Text style={styles.sectionTitle}>Health Overview</Text>
         <FlatList
@@ -252,7 +265,7 @@ const HomeScreen: React.FC = () => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.healthCard}
+              style={[styles.healthCard, { backgroundColor: item.color }]}
               onPress={() => {
                 if (item.id === '1') navigation.navigate('StepsInput', { updateHealthData: updateHealthData, });
                 if (item.id === '2') navigation.navigate('BMIInput', { updateHealthData: updateHealthData });
@@ -261,10 +274,11 @@ const HomeScreen: React.FC = () => {
               }
             >
               <Text style={styles.healthCardTitle}>{item.title}</Text>
-              <Text style={styles.healthCardState}>{item.state}</Text>
-              <Text style={styles.healthCardValue}>{item.value}</Text>
-            </TouchableOpacity>
+              <Text style={[styles.healthCardState, { color: item.stateTextColor}]}>{item.state}</Text>
+              <Text style={[styles.healthCardValue, { color: item.stateTextColor}]}>{item.value}</Text>
+            </TouchableOpacity>            
           )}
+          showsHorizontalScrollIndicator={false}
         />
 
 

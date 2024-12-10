@@ -63,9 +63,9 @@ const App = () => {
               <Stack.Screen name="Home" component={BottomTabs} options={{ headerShown: false }} />
               <Stack.Screen name="Accounts" component={BottomTabs} options={{ headerShown: false }} />
               <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} options={{title: 'Appointment Details'}} /> 
-              <Stack.Screen name="StepsInput" component={StepsInputScreen} />
-              <Stack.Screen name="BMIInput" component={BMIInputScreen} />
-              <Stack.Screen name="SleepInput" component={SleepInputScreen} />
+              <Stack.Screen name="StepsInput" component={StepsInputScreen} options={{title: 'Steps entry'}} />
+              <Stack.Screen name="BMIInput" component={BMIInputScreen} options={{title: 'BMI entry'}} />
+              <Stack.Screen name="SleepInput" component={SleepInputScreen} options={{title: 'Sleep entry'}} />
             </Stack.Navigator>
           </NavigationContainer>
       </HealthDataProvider>
