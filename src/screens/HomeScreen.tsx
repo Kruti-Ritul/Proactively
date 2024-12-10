@@ -14,6 +14,7 @@ import { tokens } from 'react-native-paper/lib/typescript/styles/themes/v3/token
 import styles from './HomeScreen.styles'; 
 import { Checkbox } from 'expo-checkbox';
 
+
 type NavigationProp = StackNavigationProp<RootStackParamList>;
 
 interface Task {
@@ -27,6 +28,7 @@ interface Task {
 interface HealthData {
   id: string;
   title: string;
+  state: string;
   value: string;
 }
 
@@ -66,6 +68,7 @@ const HomeScreen: React.FC = () => {
 
   const [progress, setProgress] = useState<number>(0.91);
   const [healthScore, setHealthScore] = useState<number>(2000);
+  
 
   const getArrowColor = (normalizedValue: number) => {
     if (normalizedValue <= 33) {
@@ -92,24 +95,61 @@ const HomeScreen: React.FC = () => {
     },
   ]);
 
+  //Appointment
   useEffect(() => {
     getFcmToken().then((token) => {
       console.log('FCM Token:', token);
     });
   }, []);
 
-  const healthData: HealthData[] = [
-    { id: '1', title: 'Steps', value: '—' },
-    { id: '2', title: 'BMI', value: '—' },
-    { id: '3', title: 'Sleep', value: '—' },
-  ];
 
+
+  //Health Card
+  const [healthData, setHealthData] = useState<HealthData[]>([
+    {
+      id: '1',
+      title: 'Steps',
+      state: 'No Data',
+      value: '_',
+    },
+    {
+      id: '2',
+      title: 'BMI',
+      state: 'No data',
+      value: '_',
+    },
+    {
+      id: '3',
+      title: 'Sleep',
+      state: 'No data',
+      value: '_',
+    },
+  ]);
+
+  const updateHealthData = (id: string, newValue: string) => {
+    setHealthData((prevData) =>
+      prevData.map((data) =>
+        data.id === id 
+          ? {
+            ...data,
+            value: newValue,
+            state: newValue === '_' ? 'No data' : 'Updated',
+
+           }
+          : data
+      )
+    );
+  };
+
+
+  //To do
   useEffect(() => {
     const completedTasks = tasks.filter((task) => task.completed).length;
     const totalTasks = tasks.length;
     setProgress(totalTasks > 0 ? completedTasks / totalTasks : 0);
   }, [tasks]);
 
+  //To do
   const toggleTask = (id: string) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -204,6 +244,7 @@ const HomeScreen: React.FC = () => {
           </TouchableOpacity>
         ))}
 
+        {/* Health Cards */}
         <Text style={styles.sectionTitle}>Health Overview</Text>
         <FlatList
           horizontal
@@ -212,15 +253,20 @@ const HomeScreen: React.FC = () => {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.healthCard}
-              onPress={() =>
-                navigation.navigate('HealthDetails', { id: item.id })
+              onPress={() => {
+                if (item.id === '1') navigation.navigate('StepsInput', { updateHealthData: updateHealthData, });
+                if (item.id === '2') navigation.navigate('BMIInput', { updateHealthData: updateHealthData });
+                if (item.id === '3') navigation.navigate('SleepInput', { updateHealthData: updateHealthData });
+              }
               }
             >
               <Text style={styles.healthCardTitle}>{item.title}</Text>
+              <Text style={styles.healthCardState}>{item.state}</Text>
               <Text style={styles.healthCardValue}>{item.value}</Text>
             </TouchableOpacity>
           )}
         />
+
 
         {/* Task Progress Section */}
 

@@ -6,7 +6,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './src/screens/SplashScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import AppointmentDetails from './src/screens/AppointmentDetails';
-import HealthCardDetails from './src/screens/HealthCardDetails';
+import { HealthDataProvider } from './src/screens/HealthCardDetails';
+import StepsInputScreen from './src/screens/StepsInputScreen';
+import BMIInputScreen from './src/screens/BMIInputScreen';
+import SleepInputScreen from './src/screens/SleepInputScreen';
 import BottomTabs from './src/screens/BottomTabs'; 
 import * as Notifications from 'expo-notifications';
 import './src/utils/firebaseConfig'; 
@@ -18,7 +21,10 @@ export type RootStackParamList = {
   Main: undefined; // Main app layout (BottomTabs)
   Accounts: undefined;
   AppointmentDetails: undefined;
-  HealthDetails: { id: string };
+  StepsInput: { updateHealthData: (id: string, newValue: string) => void };
+  BMIInput: { updateHealthData: (id: string, newValue: string) => void };
+  SleepInput: { updateHealthData: (id: string, newValue: string) => void };
+  HealthDetails: {id: string};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -47,18 +53,23 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        {/* BottomTabs is now the main layout after login */}
-        <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={BottomTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Accounts" component={BottomTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} options={{title: 'Appointment Details'}} /> 
-        <Stack.Screen name="HealthDetails" component={HealthCardDetails} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <HealthDataProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Splash">
+              <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
+              <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+              {/* BottomTabs is now the main layout after login */}
+              <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
+              <Stack.Screen name="Home" component={BottomTabs} options={{ headerShown: false }} />
+              <Stack.Screen name="Accounts" component={BottomTabs} options={{ headerShown: false }} />
+              <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} options={{title: 'Appointment Details'}} /> 
+              <Stack.Screen name="StepsInput" component={StepsInputScreen} />
+              <Stack.Screen name="BMIInput" component={BMIInputScreen} />
+              <Stack.Screen name="SleepInput" component={SleepInputScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+      </HealthDataProvider>
+
   );
 };
 

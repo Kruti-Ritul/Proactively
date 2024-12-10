@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#3D53B6' },
+
+  //Page head
   healthScoreContainer: { 
     padding: 16, 
     backgroundColor: '#3D53B6', 
@@ -83,6 +85,8 @@ const styles = StyleSheet.create({
     marginTop: 50, // To create space for the floating health score container
     backgroundColor: "#FFFFFF"
   },
+
+  //Upcoming Appointment Card
   card: {
     padding: 20,
     backgroundColor: '#fff',
@@ -109,18 +113,23 @@ const styles = StyleSheet.create({
   profilePicContainer: { alignItems: 'center', top: -50},
   //arrowIcon: { marginBottom: 30, marginRight: -80, marginTop: 10, height: 13, width: 8 },
   profileImageA: { width: 100, height: 100, borderRadius: 20, marginRight:5, marginTop: 40},
+
+  //Health Cards
   sectionTitle: { fontSize: 18, fontWeight: '600', marginVertical: 10 },
   healthCard: {
-    width: 100,
-    height: 100,
+    width: 155,
+    height: 129,
     backgroundColor: '#f0f8ff',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
   },
-  healthCardTitle: { fontSize: 16, fontWeight: 'bold' },
-  healthCardValue: { fontSize: 14, color: '#555' },
+  healthCardTitle: { fontSize: 16, fontWeight: 'bold', alignSelf: 'flex-start', marginLeft: 20 },
+  healthCardState: { fontSize: 14, color: '#4F65CB', alignSelf: 'flex-start', marginLeft: 20},
+  healthCardValue: { fontSize: 24, color: '#4F65CB', fontWeight: 'bold', alignSelf: 'flex-start', marginLeft: 20 },
+
+  //To do List
   taskItem: { 
     padding: 15, 
     borderBottomWidth: 1, 
