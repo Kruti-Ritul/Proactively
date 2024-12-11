@@ -1,6 +1,8 @@
 # Proactively Application
 
-![Logo]<img alt= "Home" src = "src\assets\splash.png">
+<div style="text-align: center;">
+  <img alt="Logo" src="src/assets/splash.png" style="width: 200px; height: auto;" />
+</div>
 
 ## Overview
 
@@ -47,9 +49,9 @@ The application includes functionality such as user authentication, health track
 
 ## Screenshots
 
-![App Screenshot]<img alt= "Login" src = "https://drive.google.com/file/d/1ItJKHvEXaiDj-S49V8IL9Nx8DwcSQity/view?usp=sharing">
+<img alt= "Login" src = "Login.jpeg">
 
-<img alt= "Home" src = "https://drive.google.com/file/d/1ItJKHvEXaiDj-S49V8IL9Nx8DwcSQity/view?usp=sharing">
+<img alt= "Home" src = "Home.jpeg">
 
 ## Demo
 
