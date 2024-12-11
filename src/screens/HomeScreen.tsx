@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Alert, Image } from 'react-native';
+import { useRef } from 'react';
+import{ Animated, Dimensions } from 'react-native';
 import { RootStackParamList } from '../../App';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ProgressBar } from 'react-native-paper';
@@ -8,7 +10,6 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { transparent } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
-import { getFcmToken } from '../utils/notifications';
 //import { sendPushNotification } from '../utils/notifications';
 import { tokens } from 'react-native-paper/lib/typescript/styles/themes/v3/tokens';
 import styles from './HomeScreen.styles'; 
@@ -34,8 +35,23 @@ interface HealthData {
   valueTextColor: String;
 }
 
+const { width } = Dimensions.get('window');
+
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
+
+  const translateX = useRef(new Animated.Value(-width)).current; 
+
+  useEffect(() => {
+    // Start the animation
+    Animated.loop(
+      Animated.timing(translateX, {
+        toValue: width, // Move the image off-screen to the right
+        duration: 8000, // Duration of the animation in milliseconds
+        useNativeDriver: true, // Use native driver for better performance
+      })
+    ).start();
+  }, [translateX]);
   
 
   const [tasks, setTasks] = useState<Task[]>([
@@ -134,7 +150,7 @@ const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     // Load data on component mount
-    console.log('Component mounted, loading data...');
+    //console.log('Component mounted, loading data...');
     loadData();
   }, []);
   
@@ -144,11 +160,11 @@ const HomeScreen: React.FC = () => {
     try{
       const storedTasks = await AsyncStorage.getItem('user_tasks');
       const storedHealthData = await AsyncStorage.getItem('user_health_data');
-
+      {/*
       console.log('Loading data:', {
         tasks: storedTasks ? JSON.parse(storedTasks): null,
         healthData: storedHealthData ? JSON.parse(storedHealthData): null,
-      });
+      });*/}
 
       if (storedTasks){
         setTasks(JSON.parse(storedTasks));
@@ -158,14 +174,15 @@ const HomeScreen: React.FC = () => {
         setHealthData(JSON.parse(storedHealthData));
       }
     }catch (error){
-      console.error('Error loading data from AsyncStorage:', error);
+      //console.error('Error loading data from AsyncStorage:', error);
     }
   };
 
    // Function to save data to AsyncStorage
    const saveData = async () => {
     try {
-      console.log('Saving data:', { tasks, healthData });
+      
+      {/*console.log('Saving data:', { tasks, healthData });*/}
       await AsyncStorage.setItem('user_tasks', JSON.stringify(tasks));
       await AsyncStorage.setItem('user_health_data', JSON.stringify(healthData));
     } catch (error) {
@@ -198,13 +215,6 @@ const HomeScreen: React.FC = () => {
     );
   };
 
-    // Effect hook to load data when the component mounts
-  useEffect(() => {
-    getFcmToken().then((token) => {
-      console.log('FCM Token:', token);
-    });
-  }, []);
-
     // Effect hook to save data whenever tasks or health data changes
   useEffect(() => {
     console.log('Tasks or HealthData changed, saving data...');
@@ -224,6 +234,9 @@ const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.healthScoreContainer}>
+        <Animated.Image source={require('../assets/proactiveAnimation.png')} style={[styles.backgroundImage, {transform: [{ translateX }]},
+        ]}
+        resizeMode="cover"/>
         <View style={styles.headerContainer}>
           <Image
             source={require('../assets/healthscoreprofile.png')}

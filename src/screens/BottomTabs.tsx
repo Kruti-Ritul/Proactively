@@ -30,7 +30,7 @@ export default function BottomTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Accounts" component={AccountScreen} />
+      <Tab.Screen name="Accounts" component={AccountScreen} options={{ headerShown: false }}/>
     </Tab.Navigator>
   );
 }

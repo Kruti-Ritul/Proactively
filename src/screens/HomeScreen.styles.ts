@@ -1,4 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#3D53B6' },
@@ -25,6 +28,11 @@ const styles = StyleSheet.create({
   },
   header: { fontSize: 16, fontWeight: '600', color: '#fff' },
   healthScoreSection: { marginTop: 16, alignItems: 'center' },
+  backgroundImage: {
+    width: '80%', // Make the image wide enough to allow animation
+    height: '80%', // Cover the top half vertically
+    position: 'absolute', // Position the image absolutely
+  },
   healthScoreTitle: { 
     fontSize: 16, 
     fontWeight: 'bold', 

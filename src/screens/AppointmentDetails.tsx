@@ -4,9 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import { RootStackParamList } from '../../App';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type AppointmentDetailsNavigationProp = StackNavigationProp<RootStackParamList, 'AppointmentDetails'>;
 
 const AppointmentDetails: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AppointmentDetailsNavigationProp>();
+
 
   // Function to open Google Meet
   const openGoogleMeet = () => {
