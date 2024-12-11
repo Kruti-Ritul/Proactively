@@ -1,7 +1,7 @@
 # Proactively Application
 
 <div style="text-align: center;">
-  <img alt="Logo" src="src/assets/splash.png" style="width: 200px; height: auto;" />
+  <img alt="Logo" src="src/assets/splash.png"  />
 </div>
 
 ## Overview
@@ -49,9 +49,9 @@ The application includes functionality such as user authentication, health track
 
 ## Screenshots
 
-<img alt= "Login" src = "Login.jpeg">
+<img alt= "Login" src = "Login.jpeg" style = "width: 400px; height: 900px">
 
-<img alt= "Home" src = "Home.jpeg">
+<img alt= "Home" src = "Home.jpeg" style = "width: 400px; height: 900px">
 
 ## Demo
 
