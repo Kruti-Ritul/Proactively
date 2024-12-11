@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "875942192908",
-    "project_id": "proactively-bbdf2",
-    "storage_bucket": "proactively-bbdf2.firebasestorage.app"
+    "project_number": "",
+    "project_id": "",
+    "storage_bucket": ""
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:875942192908:android:893bff184ebe5d6a734b29",
+        "mobilesdk_app_id": "",
         "android_client_info": {
-          "package_name": "com.ritul.proactively"
+          "package_name": ""
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBzfgw_ujTVTOJElQHdsXBiAAtXPZW8ruI"
+          "current_key": ""
         }
       ],
       "services": {

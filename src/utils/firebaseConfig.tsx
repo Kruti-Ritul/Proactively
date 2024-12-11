@@ -4,12 +4,12 @@ import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
 import * as Notifications from 'expo-notifications';
 
 const firebaseConfig = {
-  apiKey: "2f767dc67affbe4b356713b33cb5fce042cd6cae",
+  apiKey: " ",
   authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "proactively-bbdf2",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "875942192908",
-  appId: "1:875942192908:android:893bff184ebe5d6a734b29",
+  projectId: " ",
+  storageBucket: " ",
+  messagingSenderId: " ",
+  appId: " ",
   measurementId: "YOUR_MEASUREMENT_ID",
 };
 

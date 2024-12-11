@@ -18,7 +18,7 @@
     },
     "android": {
       "permissions": ["NOTIFICATIONS"],
-      "package": "com.ritul.proactively",
+      "package": "",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -30,10 +30,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "87507c78-38f1-4fe8-a607-6d1ce7468053"
+        "projectId": " "
       }
     },
-    "owner": "ritul_bharati",
+    "owner": "",
     "runtimeVersion": {
       "policy": "appVersion"
     },

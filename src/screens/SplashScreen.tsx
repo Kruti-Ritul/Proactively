@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20, // Position at the bottom
     fontSize: 14,
-    fontWeight: 'bold',
     color: '#ffffff', // Text color
   },
 });
