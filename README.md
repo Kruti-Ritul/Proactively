@@ -6,7 +6,7 @@
 
 ## Overview
 
-Proactively is a React Native application designed to provide users with an interactive and dynamic mobile experience. The app incorporates notifications, animations, and custom navigation features, ensuring a seamless and engaging user experience.
+The Cloned application is a React Native application designed to provide users with an interactive and dynamic mobile experience. The app incorporates notifications, animations, and custom navigation features, ensuring a seamless and engaging user experience.
 
 The application includes functionality such as user authentication, health tracking inputs, and dynamic background animations.
 
